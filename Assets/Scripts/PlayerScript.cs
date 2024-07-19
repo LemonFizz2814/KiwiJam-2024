@@ -26,6 +26,7 @@ public class PlayerScript : MonoBehaviour
     // private variables
     private float dust;
     private float power;
+    private bool isCharging;
     //private float speed;
 
     private float mouseX;
@@ -51,7 +52,15 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         HandleCamera();
-        PowerDepletion();
+
+        if (!isCharging)
+        {
+            PowerDepletion();
+        }
+        else
+        {
+            PowerRecharge();
+        }
     }
     private void FixedUpdate()
     {
@@ -96,6 +105,20 @@ public class PlayerScript : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Recharge Station"))
+        {
+            isCharging = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Recharge Station"))
+        {
+            isCharging = false;
+        }
+    }
 
     void CollectDust()
     {
@@ -105,7 +128,21 @@ public class PlayerScript : MonoBehaviour
 
     void PowerDepletion()
     {
-        power -= Time.deltaTime * powerDepletion;
+        if (power > 0) 
+        {
+            power -= Time.deltaTime * powerDepletion;
+        }
+
+        uiManager.SetPowerSliderValue(power, maxPower);
+    }
+
+    void PowerRecharge()
+    {
+        if (power < maxPower)
+        {
+            power += Time.deltaTime * powerDepletion;
+        }
+
         uiManager.SetPowerSliderValue(power, maxPower);
     }
 }
