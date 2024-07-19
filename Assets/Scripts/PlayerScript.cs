@@ -11,36 +11,47 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [Space]
     [SerializeField] private float powerDepletion;
+
     [Header("Camera Variables")]
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private float cameraDistance;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Transform cameraTransform;
+
+    [Header("Object References")]
     [SerializeField] private Transform model;
+
+    private UIManager uiManager;
 
     // private variables
     private float dust;
     private float power;
     //private float speed;
 
-    private Rigidbody rb;
-
     private float mouseX;
     private float mouseY;
+
+    private Rigidbody rb;
 
     private Vector3 moveDirection;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        uiManager = FindObjectOfType<UIManager>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        power = maxPower;
+        uiManager.SetPowerSliderValue(power, maxPower);
+        uiManager.SetDustValue(dust, maxDust);
     }
 
     void Update()
     {
         HandleCamera();
+        PowerDepletion();
     }
     private void FixedUpdate()
     {
@@ -59,7 +70,6 @@ public class PlayerScript : MonoBehaviour
         rb.velocity = moveDirection * maxSpeed;
         Rotate();
     }
-
     void Rotate()
     {
         if (rb.velocity.magnitude > 0.05f)
@@ -68,7 +78,6 @@ public class PlayerScript : MonoBehaviour
             model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
-
     void HandleCamera()
     {
         mouseX += Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -77,5 +86,26 @@ public class PlayerScript : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
         cameraTransform.position = transform.position - cameraTransform.forward * cameraDistance;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Dust") && dust < maxDust)
+        {
+            CollectDust();
+            Destroy(other.gameObject);
+        }
+    }
+
+    void CollectDust()
+    {
+        dust++;
+        uiManager.SetDustValue(dust, maxDust);
+    }
+
+    void PowerDepletion()
+    {
+        power -= Time.deltaTime * powerDepletion;
+        uiManager.SetPowerSliderValue(power, maxPower);
     }
 }
