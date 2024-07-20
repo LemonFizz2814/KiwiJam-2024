@@ -27,6 +27,15 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Transform model;
     [SerializeField] private Transform catSitPos;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip vacuumSFX;
+    [SerializeField] private AudioClip suckSFX;
+    [SerializeField] private AudioClip slimeSFX;
+    [SerializeField] private AudioClip rechargeSFX;
+    [SerializeField] private AudioClip dumpSFX;
+    [SerializeField] private AudioClip powerDownSFX;
+    [SerializeField] private AudioClip powerUpSFX;
+
     // private variables
     private float dust;
     private float power;
@@ -38,9 +47,14 @@ public class PlayerScript : MonoBehaviour
 
     private bool beingSatOn;
     private bool inStickySubstance;
-    private bool lowPower;
+    private bool lowPower, fullPower;
+
+    // Upgrades
+    private bool hasKnife;
+    private GameObject Knife;
 
     private Rigidbody rb;
+    private AudioSource audioSource;
 
     private Vector3 moveDirection;
 
@@ -50,6 +64,7 @@ public class PlayerScript : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -58,6 +73,11 @@ public class PlayerScript : MonoBehaviour
         power = maxPower;
         uiManager.SetPowerSliderValue(power, maxPower);
         uiManager.SetDustValue(dust, maxDust);
+
+        //Upgrade Stuff
+        //Knife = transform.Find("Roomba").Find("Knife").gameObject;
+        //Knife.SetActive(false);
+
     }
 
     void Update()
@@ -65,6 +85,7 @@ public class PlayerScript : MonoBehaviour
         //HandleCamera();
         Move();
         PowerManagement();
+        UpgradeManager();
         PowerDepletion();
         EjectButton();
     }
@@ -132,6 +153,8 @@ public class PlayerScript : MonoBehaviour
             uiManager.SetPowerSliderValue(power, maxPower);
             uiManager.SetDustValue(dust, maxDust);
 
+            audioSource.PlayOneShot(dumpSFX);
+
             if (beingSatOn && catScript != null)
             {
                 catScript.HopOffPlayer(transform);
@@ -149,7 +172,12 @@ public class PlayerScript : MonoBehaviour
         }
         else if(other.CompareTag("Sticky"))
         {
+            audioSource.PlayOneShot(slimeSFX);
             inStickySubstance = true;
+        }
+        else if(other.CompareTag("Recharge Station"))
+        {
+            audioSource.PlayOneShot(rechargeSFX);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -171,10 +199,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void CollectDust()
+    public void CollectDust()
     {
         dust++;
         uiManager.SetDustValue(dust, maxDust);
+        audioSource.pitch = Random.Range(0.95f, 1.05f);
+        audioSource.PlayOneShot(suckSFX, 0.5f);
     }
 
     void PowerManagement()
@@ -195,10 +225,15 @@ public class PlayerScript : MonoBehaviour
         {
             power -= Time.deltaTime * powerDepletion;
             lowPower = false;
+            fullPower = false;
         }
         else
         {
-            lowPower = true;
+            if(!lowPower)
+            {
+                lowPower = true;
+                audioSource.PlayOneShot(powerDownSFX);
+            }
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
@@ -209,6 +244,11 @@ public class PlayerScript : MonoBehaviour
         if (power < maxPower)
         {
             power += Time.deltaTime * powerCharge;
+        }
+        else if(!fullPower)
+        {
+            fullPower = true;
+            audioSource.PlayOneShot(powerUpSFX);
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
@@ -222,5 +262,13 @@ public class PlayerScript : MonoBehaviour
     {
         beingSatOn = _beingSatOn;
         catScript = _catScript;
+    }
+
+    private void UpgradeManager()
+    {
+        //if (UI BUTTON IS CLICKED)
+        //{
+        //    hasKnife = True;
+        //}
     }
 }

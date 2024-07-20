@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 6776186757229914079}
   - component: {fileID: 1541398109530873000}
   - component: {fileID: 441878171378127858}
-  - component: {fileID: 4661816914125954796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CatModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4661816914125954796
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4202654478652101753}
-  m_Material: {fileID: 13400000, guid: d94ae777a9c194d418f46fe9de2cb436, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4472586468952774246
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3826962423194058969}
   - component: {fileID: 859301607636232319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cat (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7108214280204486800}
   - component: {fileID: 5696109161510000870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cat (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +264,8 @@ GameObject:
   - component: {fileID: 7385190428407239818}
   - component: {fileID: 5122112410895392196}
   - component: {fileID: 6775732297574483578}
-  m_Layer: 0
+  - component: {fileID: 3979681031442391303}
+  m_Layer: 8
   m_Name: Cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,3 +367,24 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.2
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!135 &3979681031442391303
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088006772674198404}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
