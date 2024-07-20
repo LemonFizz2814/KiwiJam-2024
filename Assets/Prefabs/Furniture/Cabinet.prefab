@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 04ca36a3db3932041b1df1973d38dc05, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04ca36a3db3932041b1df1973d38dc05, type: 3}
       propertyPath: m_LocalScale.x
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 04ca36a3db3932041b1df1973d38dc05, type: 3}
       propertyPath: m_Name
-      value: cabinet_small_right Variant
+      value: Cabinet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
