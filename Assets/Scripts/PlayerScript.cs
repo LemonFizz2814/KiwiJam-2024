@@ -40,6 +40,10 @@ public class PlayerScript : MonoBehaviour
     private bool inStickySubstance;
     private bool lowPower;
 
+    // Upgrades
+    private bool hasKnife;
+    private GameObject Knife;
+
     private Rigidbody rb;
 
     private Vector3 moveDirection;
@@ -58,6 +62,11 @@ public class PlayerScript : MonoBehaviour
         power = maxPower;
         uiManager.SetPowerSliderValue(power, maxPower);
         uiManager.SetDustValue(dust, maxDust);
+
+        //Upgrade Stuff
+        Knife = transform.Find("Roomba").Find("Knife").gameObject;
+        Knife.SetActive(false);
+
     }
 
     void Update()
@@ -65,6 +74,7 @@ public class PlayerScript : MonoBehaviour
         //HandleCamera();
         Move();
         PowerManagement();
+        UpgradeManager();
         PowerDepletion();
         EjectButton();
     }
@@ -222,5 +232,13 @@ public class PlayerScript : MonoBehaviour
     {
         beingSatOn = _beingSatOn;
         catScript = _catScript;
+    }
+
+    private void UpgradeManager()
+    {
+        //if (UI BUTTON IS CLICKED)
+        //{
+        //    hasKnife = True;
+        //}
     }
 }
