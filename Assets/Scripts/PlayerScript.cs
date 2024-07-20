@@ -59,13 +59,13 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         //HandleCamera();
+        Move();
         PowerManagement();
         PowerDepletion();
         EjectButton();
     }
     private void FixedUpdate()
     {
-        Move();
         //HandleCamera();
     }
 

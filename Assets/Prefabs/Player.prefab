@@ -34,7 +34,7 @@ Transform:
   - {fileID: 8332564092097140337}
   - {fileID: 8860105565857036881}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8248355956283319689
 MonoBehaviour:
@@ -70,8 +70,8 @@ Rigidbody:
   m_GameObject: {fileID: 302543279297921658}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 1
+  m_Drag: 0.2
+  m_AngularDrag: 0.2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
