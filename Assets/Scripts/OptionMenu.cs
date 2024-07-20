@@ -30,7 +30,6 @@ public class OptionsMenu : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Volume", volume);
         AudioListener.volume = volume;
-        Debug.Log("Current Volume: " + volume);
     }
 
     public void SetWindow(int mode)
