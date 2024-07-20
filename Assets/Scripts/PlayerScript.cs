@@ -11,6 +11,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [Space]
     [SerializeField] private float powerDepletion;
+    [SerializeField] private float powerDumpLoss;
+    [SerializeField] private float satOnSpeedDeduction;
 
     [Header("Camera Variables")]
     [SerializeField] private float mouseSensitivity;
@@ -20,8 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Object References")]
     [SerializeField] private Transform model;
-
-    private UIManager uiManager;
+    [SerializeField] private Transform catSitPos;
 
     // private variables
     private float dust;
@@ -32,9 +33,14 @@ public class PlayerScript : MonoBehaviour
     private float mouseX;
     private float mouseY;
 
+    private bool beingSatOn;
+
     private Rigidbody rb;
 
     private Vector3 moveDirection;
+
+    private UIManager uiManager;
+    private CatScript catScript;
 
     void Awake()
     {
@@ -53,6 +59,8 @@ public class PlayerScript : MonoBehaviour
     {
         HandleCamera();
         PowerManagement();
+        PowerDepletion();
+        EjectButton();
     }
     private void FixedUpdate()
     {
@@ -68,7 +76,7 @@ public class PlayerScript : MonoBehaviour
         moveDirection.y = 0;
         moveDirection.Normalize();
 
-        rb.velocity = moveDirection * maxSpeed;
+        rb.velocity = moveDirection * (maxSpeed * (beingSatOn ? satOnSpeedDeduction : 1));
         Rotate();
     }
     void Rotate()
@@ -87,6 +95,24 @@ public class PlayerScript : MonoBehaviour
 
         cameraTransform.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
         cameraTransform.position = transform.position - cameraTransform.forward * cameraDistance;
+    }
+
+    void EjectButton()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            dust = 0;
+            power -= powerDumpLoss;
+
+            uiManager.SetPowerSliderValue(power, maxPower);
+            uiManager.SetDustValue(dust, maxDust);
+
+            if (beingSatOn && catScript != null)
+            {
+                catScript.HopOffPlayer(transform);
+            }
+            // TODO: spawn in dust particle cloud
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -148,5 +174,15 @@ public class PlayerScript : MonoBehaviour
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
+    }
+
+    public Transform GetCatSitPosition()
+    {
+        return catSitPos;
+    }
+    public void SetBeingSatOn(bool _beingSatOn, CatScript _catScript)
+    {
+        beingSatOn = _beingSatOn;
+        catScript = _catScript;
     }
 }
