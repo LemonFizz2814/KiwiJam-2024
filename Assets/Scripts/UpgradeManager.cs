@@ -72,7 +72,8 @@ public class UpgradeManager : MonoBehaviour
         capacityLevelText.text = $"Upgrade capacity\nLvl. {capacityIndex}";
         powerLevelText.text = $"Upgrade power\nLvl. {powerIndex}";
 
-        dustText.text = $"Dust: {playerScript.GetDust()}";
+        if (playerScript != null)
+            dustText.text = $"Dust: {playerScript.GetDust()}";
     }
 
     public void UpgradeSuctionPressed()
