@@ -16,6 +16,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float stickySpeedDeduction;
     [SerializeField] private float lowPowerSpeedDeduction;
     [SerializeField] private float powerCharge;
+    [SerializeField] private float suctionPower;
 
     [Header("Camera Variables")]
     [SerializeField] private float mouseSensitivity;
@@ -44,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     // private variables
     private float dust;
     private float power;
+    private float suction;
     private bool isCharging;
     //private float speed;
 
@@ -51,6 +53,7 @@ public class PlayerScript : MonoBehaviour
     private float mouseY;
 
     private bool beingSatOn;
+    private bool inUpgradeStation;
     private bool inStickySubstance;
     private bool lowPower, fullPower;
 
@@ -79,6 +82,7 @@ public class PlayerScript : MonoBehaviour
         Knife.SetActive(false);
 
         ps = transform.Find("Roomba").Find("Vacuum").GetComponent<ParticleSystemForceField>();
+        suction = suctionPower;
         StartGame();
     }
 
@@ -120,6 +124,11 @@ public class PlayerScript : MonoBehaviour
         if (rb.velocity.magnitude > 0.05f)
         {
             Rotate();
+
+            if(!isCharging)
+            {
+                PowerDepletion();
+            }
 
             if (!vacuumAudio.isPlaying)
                 vacuumAudio.Play();
@@ -165,7 +174,14 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Dump();
+            if (inUpgradeStation)
+            {
+                uiManager.ShowUpgradeScreen(true);
+            }
+            else
+            {
+                Dump();
+            }
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -213,6 +229,11 @@ public class PlayerScript : MonoBehaviour
         {
             audioSource.PlayOneShot(rechargeSFX);
         }
+        else if(other.CompareTag("Upgrade Station"))
+        {
+            uiManager.ShowUpgradeStationPrompt(true);
+            inUpgradeStation = true;
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -230,6 +251,11 @@ public class PlayerScript : MonoBehaviour
         else if (other.CompareTag("Sticky"))
         {
             inStickySubstance = false;
+        }
+        else if (other.CompareTag("Upgrade Station"))
+        {
+            uiManager.ShowUpgradeStationPrompt(false);
+            inUpgradeStation = false;
         }
     }
 
@@ -261,11 +287,7 @@ public class PlayerScript : MonoBehaviour
 
     void PowerManagement()
     {
-        if (!isCharging)
-        {
-            PowerDepletion();
-        }
-        else
+        if (isCharging)
         {
             PowerRecharge();
         }
@@ -321,6 +343,31 @@ public class PlayerScript : MonoBehaviour
 
         beingSatOn = _beingSatOn;
         catScript = _catScript;
+    }
+
+    public void SuctionIncreased(float _suction)
+    {
+        suction = _suction;
+        ps.endRange = suction;
+    }
+    public void CapacityIncreased(float _capacity)
+    {
+        maxDust = _capacity;
+        uiManager.SetDustValue(dust, maxDust);
+    }
+    public void PowerIncreased(float _power)
+    {
+        maxPower = _power;
+        uiManager.SetPowerSliderValue(power, maxPower);
+    }
+
+    public float GetDust()
+    {
+        return dust;
+    }
+    public void SetDust(float _dust)
+    {
+        dust = _dust;
     }
 
     private void UpgradeManager()

@@ -11,8 +11,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject endingScreen;
     [SerializeField] private GameObject catHelpText;
+    [SerializeField] private GameObject upgradeStationPromptText;
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField] private TextMeshProUGUI dustText;
+    [Space]
+    [SerializeField] private UpgradeManager upgradeManager;
 
     private PlayerScript playerScript;
 
@@ -21,11 +24,12 @@ public class UIManager : MonoBehaviour
         startScreen.SetActive(true);
         ShowCatHelpText(false);
         ShowEndScreen(false);
+        ShowUpgradeScreen(false);
+        ShowUpgradeStationPrompt(false);
 
         playerScript = FindObjectOfType<PlayerScript>();
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        LockCursor(false);
     }
 
     public void SetPowerSliderValue(float _value, float _max)
@@ -45,6 +49,16 @@ public class UIManager : MonoBehaviour
     public void ShowEndScreen(bool _show)
     {
         endingScreen.SetActive(_show);
+        LockCursor(!_show);
+    }
+    public void ShowUpgradeStationPrompt(bool _show)
+    {
+        upgradeStationPromptText.SetActive(_show);
+    }
+    public void ShowUpgradeScreen(bool _show)
+    {
+        LockCursor(!_show);
+        upgradeManager.gameObject.SetActive(_show);
     }
     public void ExitToMenuPressed()
     {
@@ -53,10 +67,23 @@ public class UIManager : MonoBehaviour
 
     public void StartGamePressed()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockCursor(true);
 
         startScreen.SetActive(false);
         playerScript.StartGame();
+    }
+
+    void LockCursor(bool _locked)
+    {
+        if(_locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
