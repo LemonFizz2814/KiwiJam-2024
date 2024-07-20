@@ -13,6 +13,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float powerDepletion;
     [SerializeField] private float powerDumpLoss;
     [SerializeField] private float satOnSpeedDeduction;
+    [SerializeField] private float stickySpeedDeduction;
+    [SerializeField] private float lowPowerSpeedDeduction;
     [SerializeField] private float powerCharge;
 
     [Header("Camera Variables")]
@@ -35,6 +37,8 @@ public class PlayerScript : MonoBehaviour
     private float mouseY;
 
     private bool beingSatOn;
+    private bool inStickySubstance;
+    private bool lowPower;
 
     private Rigidbody rb;
 
@@ -78,7 +82,8 @@ public class PlayerScript : MonoBehaviour
         moveDirection.y = 0;
         moveDirection.Normalize();
 
-        rb.velocity = moveDirection * (maxSpeed * (beingSatOn ? satOnSpeedDeduction : 1));
+        float velocity = CalculateSpeedDeduction(maxSpeed);
+        rb.velocity = moveDirection * velocity;
         Rotate();
     }
     void Rotate()
@@ -97,6 +102,24 @@ public class PlayerScript : MonoBehaviour
 
         //cameraTransform.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
         //cameraTransform.position = transform.position - cameraTransform.forward * cameraDistance;
+    }
+
+    float CalculateSpeedDeduction(float _speed)
+    {
+        if(beingSatOn)
+        {
+            _speed *= satOnSpeedDeduction;
+        }
+        if(inStickySubstance)
+        {
+            _speed *= stickySpeedDeduction;
+        }
+        if(lowPower)
+        {
+            _speed *= lowPowerSpeedDeduction;
+        }
+
+        return _speed;
     }
 
     void EjectButton()
@@ -124,6 +147,10 @@ public class PlayerScript : MonoBehaviour
             CollectDust();
             Destroy(other.gameObject);
         }
+        else if(other.CompareTag("Sticky"))
+        {
+            inStickySubstance = true;
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -137,6 +164,10 @@ public class PlayerScript : MonoBehaviour
         if (other.CompareTag("Recharge Station"))
         {
             isCharging = false;
+        }
+        else if (other.CompareTag("Sticky"))
+        {
+            inStickySubstance = false;
         }
     }
 
@@ -163,6 +194,11 @@ public class PlayerScript : MonoBehaviour
         if (power > 0) 
         {
             power -= Time.deltaTime * powerDepletion;
+            lowPower = false;
+        }
+        else
+        {
+            lowPower = true;
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);

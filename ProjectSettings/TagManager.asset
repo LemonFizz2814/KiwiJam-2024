@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dust
   - Recharge Station
+  - Sticky
   layers:
   - Default
   - TransparentFX
