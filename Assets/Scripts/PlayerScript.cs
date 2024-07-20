@@ -12,7 +12,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [Space]
     [SerializeField] private float powerDepletion;
-    [SerializeField] private float powerDumpLoss;
     [SerializeField] private float satOnSpeedDeduction;
     [SerializeField] private float stickySpeedDeduction;
     [SerializeField] private float lowPowerSpeedDeduction;
@@ -28,9 +27,10 @@ public class PlayerScript : MonoBehaviour
     [Header("Object References")]
     [SerializeField] private Transform model;
     [SerializeField] private Transform catSitPos;
+    [SerializeField] private ParticleSystem dumpVFX;
 
     [Header("Sounds")]
-    [SerializeField] private AudioClip vacuumSFX;
+    [SerializeField] private AudioSource vacuumAudio;
     [SerializeField] private AudioClip suckSFX;
     [SerializeField] private AudioClip slimeSFX;
     [SerializeField] private AudioClip rechargeSFX;
@@ -74,18 +74,19 @@ public class PlayerScript : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         uiManager = FindObjectOfType<UIManager>();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        power = maxPower;
-        uiManager.SetPowerSliderValue(power, maxPower);
-        uiManager.SetDustValue(dust, maxDust);
-
         //Upgrade Stuff
         Knife = transform.Find("Roomba").Find("Knife").gameObject;
         Knife.SetActive(false);
 
         ps = transform.Find("Roomba").Find("Vacuum").GetComponent<ParticleSystemForceField>();
+        StartGame();
+    }
+
+    public void StartGame()
+    {
+        power = maxPower;
+        uiManager.SetPowerSliderValue(power, maxPower);
+        uiManager.SetDustValue(dust, maxDust);
     }
 
     void Update()
@@ -97,7 +98,7 @@ public class PlayerScript : MonoBehaviour
         ButtonCheck();
         CameraDistanceCheck();
 
-        ps.gameObject.SetActive(dust >= maxDust); // disable forcefield if dust is full
+        ps.gameObject.SetActive(dust < maxDust); // disable forcefield if dust is full
     }
     private void FixedUpdate()
     {
@@ -115,15 +116,23 @@ public class PlayerScript : MonoBehaviour
 
         float velocity = CalculateSpeedDeduction(maxSpeed);
         rb.velocity = moveDirection * velocity;
-        Rotate();
+
+        if (rb.velocity.magnitude > 0.05f)
+        {
+            Rotate();
+
+            if (!vacuumAudio.isPlaying)
+                vacuumAudio.Play();
+        }
+        else
+        {
+            vacuumAudio.Stop();
+        }
     }
     void Rotate()
     {
-        if (rb.velocity.magnitude > 0.05f)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
+        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+        model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     void HandleCamera()
     {
@@ -170,19 +179,22 @@ public class PlayerScript : MonoBehaviour
 
     public void Dump()
     {
-        dust = 0;
-        power -= powerDumpLoss;
-
-        uiManager.SetPowerSliderValue(power, maxPower);
-        uiManager.SetDustValue(dust, maxDust);
-
-        audioSource.PlayOneShot(dumpSFX);
-
-        if (beingSatOn && catScript != null)
+        if (dust != 0)
         {
-            catScript.HopOffPlayer(transform);
+            dust = 0;
+
+            uiManager.SetPowerSliderValue(power, maxPower);
+            uiManager.SetDustValue(dust, maxDust);
+
+            audioSource.PlayOneShot(dumpSFX);
+
+            dumpVFX.Play();
+
+            if (beingSatOn && catScript != null)
+            {
+                catScript.HopOffPlayer(transform);
+            }
         }
-        // TODO: spawn in dust particle cloud
     }
 
     private void OnTriggerEnter(Collider other)
@@ -237,7 +249,7 @@ public class PlayerScript : MonoBehaviour
         float distance = Vector3.Distance(transform.position, camSetPos.position);
         Vector3 direction = (camSetPos.position - transform.position).normalized;
 
-        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, ~LayerMask.GetMask("Player")))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, ~LayerMask.GetMask("Player"), QueryTriggerInteraction.Ignore))
         {
             cameraTransform.position = hit.point;
         }
@@ -304,6 +316,9 @@ public class PlayerScript : MonoBehaviour
         { audioSource.PlayOneShot(meowSFX); }
         else
         { audioSource.PlayOneShot(hissSFX); }
+
+        uiManager.ShowCatHelpText(beingSatOn);
+
         beingSatOn = _beingSatOn;
         catScript = _catScript;
     }

@@ -9,6 +9,7 @@ public class BabyScript : MonoBehaviour
 
     [SerializeField] private float slapWaitTimer;
     [SerializeField] private AudioClip babySFX;
+    [SerializeField] private Vector2 randomAudio;
 
     // private variable
     private bool canSlap;
@@ -22,6 +23,7 @@ public class BabyScript : MonoBehaviour
         canSlap = true;
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+        StartCoroutine(PlaySound());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,6 +45,13 @@ public class BabyScript : MonoBehaviour
 
         StartCoroutine(CanSlapAgainWait());
         // TODO: animate baby slap
+    }
+
+    IEnumerator PlaySound()
+    {
+        yield return new WaitForSeconds(Random.Range(randomAudio.x, randomAudio.y));
+        audioSource.Play();
+        StartCoroutine(PlaySound());
     }
 
     IEnumerator CanSlapAgainWait()

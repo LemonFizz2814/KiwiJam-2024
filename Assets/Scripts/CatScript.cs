@@ -6,6 +6,7 @@ public class CatScript : MonoBehaviour
 {
     [SerializeField] private WayPointSystem wayPointSystem;
     [SerializeField] private float hopOffWaitTimer;
+    [SerializeField] private Vector2 randomAudio;
 
     // private variable
     private bool canSit;
@@ -13,12 +14,15 @@ public class CatScript : MonoBehaviour
     private PlayerScript playerScript;
     private Rigidbody rb;
     private Animator animator;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         canSit = true;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        StartCoroutine(PlaySound());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,6 +61,13 @@ public class CatScript : MonoBehaviour
         wayPointSystem.SelectNextWayPoint();
 
         StartCoroutine(HopOffWait());
+    }
+
+    IEnumerator PlaySound()
+    {
+        yield return new WaitForSeconds(Random.Range(randomAudio.x, randomAudio.y));
+        audioSource.Play();
+        StartCoroutine(PlaySound());
     }
 
     IEnumerator HopOffWait()
