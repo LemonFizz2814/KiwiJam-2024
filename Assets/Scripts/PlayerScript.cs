@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float cameraDistance;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private Transform camSetPos;
 
     [Header("Object References")]
     [SerializeField] private Transform model;
@@ -35,6 +37,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private AudioClip dumpSFX;
     [SerializeField] private AudioClip powerDownSFX;
     [SerializeField] private AudioClip powerUpSFX;
+    [SerializeField] private AudioClip hissSFX;
+    [SerializeField] private AudioClip meowSFX;
+    [SerializeField] private AudioClip babySFX;
 
     // private variables
     private float dust;
@@ -86,8 +91,8 @@ public class PlayerScript : MonoBehaviour
         Move();
         PowerManagement();
         UpgradeManager();
-        PowerDepletion();
-        EjectButton();
+        ButtonCheck();
+        CameraDistanceCheck();
     }
     private void FixedUpdate()
     {
@@ -97,7 +102,7 @@ public class PlayerScript : MonoBehaviour
     void Move()
     {
         float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float vertical = Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1);
         moveDirection = new Vector3(horizontal, 0, vertical);
         moveDirection = cameraTransform.TransformDirection(moveDirection);
         moveDirection.y = 0;
@@ -142,10 +147,25 @@ public class PlayerScript : MonoBehaviour
 
         return _speed;
     }
-
-    void EjectButton()
+    void ButtonCheck()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Dump();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if (Input.GetKeyDown(KeyCode.Home))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    public void Dump()
+    {
+        if (dust < maxDust)
         {
             dust = 0;
             power -= powerDumpLoss;
@@ -204,7 +224,22 @@ public class PlayerScript : MonoBehaviour
         dust++;
         uiManager.SetDustValue(dust, maxDust);
         audioSource.pitch = Random.Range(0.95f, 1.05f);
-        audioSource.PlayOneShot(suckSFX, 0.5f);
+        audioSource.PlayOneShot(suckSFX, 0.3f);
+    }
+
+    private void CameraDistanceCheck()
+    {
+        float distance = Vector3.Distance(transform.position, camSetPos.position);
+        Vector3 direction = (camSetPos.position - transform.position).normalized;
+
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, distance, ~LayerMask.GetMask("Player")))
+        {
+            cameraTransform.position = hit.point;
+        }
+        else
+        {
+            cameraTransform.position = camSetPos.position;
+        }
     }
 
     void PowerManagement()
@@ -260,6 +295,10 @@ public class PlayerScript : MonoBehaviour
     }
     public void SetBeingSatOn(bool _beingSatOn, CatScript _catScript)
     {
+        if (beingSatOn)
+        { audioSource.PlayOneShot(meowSFX); }
+        else
+        { audioSource.PlayOneShot(hissSFX); }
         beingSatOn = _beingSatOn;
         catScript = _catScript;
     }

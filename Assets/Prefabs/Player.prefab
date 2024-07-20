@@ -60,8 +60,9 @@ MonoBehaviour:
   powerCharge: 20
   mouseSensitivity: 2
   cameraDistance: 5
-  rotationSpeed: 5
+  rotationSpeed: 2.5
   cameraTransform: {fileID: 7939224395878610276}
+  camSetPos: {fileID: 4991183433783751995}
   model: {fileID: 8332564092097140337}
   catSitPos: {fileID: 8860105565857036881}
   vacuumSFX: {fileID: 8300000, guid: 72f85ebc30f72b04a9454ad67fe33ea2, type: 3}
@@ -71,6 +72,9 @@ MonoBehaviour:
   dumpSFX: {fileID: 8300000, guid: 993b286c7a5f2d84d851ace5b5140ca0, type: 3}
   powerDownSFX: {fileID: 8300000, guid: 69bd693a9a6bfd7428a0f4d57c2c1eb6, type: 3}
   powerUpSFX: {fileID: 8300000, guid: ca2f33061c834414788219406e8a518c, type: 3}
+  hissSFX: {fileID: 8300000, guid: 779cc4a92cddeeb4da07e6aae7fc1404, type: 3}
+  meowSFX: {fileID: 8300000, guid: 62b06968bc803554682768d0b19a142b, type: 3}
+  babySFX: {fileID: 8300000, guid: dc4ef323dcc6bd04f8757a07e1a8e4ff, type: 3}
 --- !u!54 &2258162225821441563
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -117,7 +121,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.55, y: 0.2, z: 2.72}
+  m_Size: {x: 1, y: 0.2, z: 1}
   m_Center: {x: 0, y: 0.1, z: 0}
 --- !u!82 &7122431084668864588
 AudioSource:
@@ -129,7 +133,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: efd7dadb86919dc45802b709063571b4, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -775,6 +779,7 @@ Transform:
   - {fileID: 1808377944860707190}
   - {fileID: 110237793363581351}
   - {fileID: 7939224395878610276}
+  - {fileID: 4991183433783751995}
   - {fileID: 8730501291528120204}
   m_Father: {fileID: 7354137564756047393}
   m_RootOrder: -1
@@ -796,7 +801,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0.55}
@@ -812,7 +817,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 72f85ebc30f72b04a9454ad67fe33ea2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1124,6 +1129,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7321164904280205158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4991183433783751995}
+  m_Layer: 7
+  m_Name: CamSet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4991183433783751995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7321164904280205158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -5.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8332564092097140337}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9065735123195897599
 GameObject:
   m_ObjectHideFlags: 0

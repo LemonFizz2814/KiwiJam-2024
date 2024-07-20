@@ -12,11 +12,13 @@ public class CatScript : MonoBehaviour
 
     private PlayerScript playerScript;
     private Rigidbody rb;
+    private Animator animator;
 
     private void Awake()
     {
         canSit = true;
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,13 +34,14 @@ public class CatScript : MonoBehaviour
         canSit = false;
         playerScript = _player.GetComponent<PlayerScript>();
 
+        //animator.SetTrigger("Sit");
+
         rb.isKinematic = true;
         wayPointSystem.SetMoving(false);
 
         transform.position = playerScript.GetCatSitPosition().position;
         transform.SetParent(_player);
         playerScript.SetBeingSatOn(true, this);
-        // TODO: animate cat sitting
     }
 
     public void HopOffPlayer(Transform _player)
