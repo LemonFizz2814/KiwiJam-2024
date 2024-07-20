@@ -10,24 +10,29 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private List<Upgrade> suctionUpgrades = new List<Upgrade>();
     [SerializeField] private List<Upgrade> capacityUpgrades = new List<Upgrade>();
     [SerializeField] private List<Upgrade> powerUpgrades = new List<Upgrade>();
+    [SerializeField] private List<Upgrade> knifeUpgrades = new List<Upgrade>();
     [Space]
     [SerializeField] private TextMeshProUGUI suctionPriceText;
     [SerializeField] private TextMeshProUGUI capacityPriceText;
     [SerializeField] private TextMeshProUGUI powerPriceText;
+    [SerializeField] private TextMeshProUGUI knifePriceText;
     [Space]
     [SerializeField] private TextMeshProUGUI suctionIncreaseText;
     [SerializeField] private TextMeshProUGUI capacityIncreaseText;
     [SerializeField] private TextMeshProUGUI powerIncreaseText;
+    [SerializeField] private TextMeshProUGUI knifeIncreaseText;
     [Space]
     [SerializeField] private TextMeshProUGUI suctionLevelText;
     [SerializeField] private TextMeshProUGUI capacityLevelText;
     [SerializeField] private TextMeshProUGUI powerLevelText;
+    [SerializeField] private TextMeshProUGUI knifeLevelText;
     [Space]
     [SerializeField] private TextMeshProUGUI dustText;
     [Space]
     [SerializeField] private GameObject suctionButton;
     [SerializeField] private GameObject capacityButton;
     [SerializeField] private GameObject powerButton;
+    [SerializeField] private GameObject knifeButton;
     [Space]
     [SerializeField] private UIManager uiManager;
 
@@ -36,6 +41,7 @@ public class UpgradeManager : MonoBehaviour
     private int suctionIndex = 0;
     private int capacityIndex = 0;
     private int powerIndex = 0;
+    private int knifeIndex = 0;
 
     private PlayerScript playerScript;
 
@@ -54,23 +60,52 @@ public class UpgradeManager : MonoBehaviour
         suctionButton.SetActive(true);
         capacityButton.SetActive(true);
         powerButton.SetActive(true);
+        knifeButton.SetActive(true);
 
-        UpdateText();
+        UpdateAllText();
     }
 
-    public void UpdateText()
+    public void UpdateAllText()
+    {
+        if (suctionIndex < suctionUpgrades.Count)
+            UpdateSuctionText();
+        if (capacityIndex < capacityUpgrades.Count)
+            UpdateCapacityText();
+        if (powerIndex < powerUpgrades.Count)
+            UpdatePowerText();
+        if (knifeIndex < knifeUpgrades.Count)
+            UpdateKnifeText();
+    }
+
+    public void UpdateSuctionText()
     {
         suctionPriceText.text = suctionUpgrades[suctionIndex].cost + " Dust";
-        capacityPriceText.text = capacityUpgrades[capacityIndex].cost + " Dust";
-        powerPriceText.text = powerUpgrades[powerIndex].cost + " Dust";
-
         suctionIncreaseText.text = $"+{suctionUpgrades[suctionIndex].increase} Suck";
-        capacityIncreaseText.text = $"+{capacityUpgrades[capacityIndex].increase} Max Dust";
-        powerIncreaseText.text = $"+{powerUpgrades[powerIndex].increase} Max Power";
+        suctionLevelText.text = $"Upgrade suction\n\nLvl. {suctionIndex}";
 
-        suctionLevelText.text = $"Upgrade suction\nLvl. {suctionIndex}";
-        capacityLevelText.text = $"Upgrade capacity\nLvl. {capacityIndex}";
-        powerLevelText.text = $"Upgrade power\nLvl. {powerIndex}";
+        dustText.text = $"Dust: {playerScript.GetDust()}";
+    }
+    public void UpdateCapacityText()
+    {
+        capacityPriceText.text = capacityUpgrades[capacityIndex].cost + " Dust";
+        capacityIncreaseText.text = $"+{capacityUpgrades[capacityIndex].increase} Max Dust";
+        capacityLevelText.text = $"Upgrade capacity\n\nLvl. {capacityIndex}";
+
+        dustText.text = $"Dust: {playerScript.GetDust()}";
+    }
+    public void UpdatePowerText()
+    {
+        powerPriceText.text = powerUpgrades[powerIndex].cost + " Dust";
+        powerIncreaseText.text = $"+{powerUpgrades[powerIndex].increase} Max Power";
+        powerLevelText.text = $"Upgrade power\n\nLvl. {powerIndex}";
+
+        dustText.text = $"Dust: {playerScript.GetDust()}";
+    }
+    public void UpdateKnifeText()
+    {
+        knifePriceText.text = knifeUpgrades[knifeIndex].cost + " Dust";
+        knifeIncreaseText.text = $"+{knifeUpgrades[knifeIndex].increase} Knife";
+        knifeLevelText.text = $"Buy knife\n\nLvl. {knifeIndex}";
 
         if (playerScript != null)
             dustText.text = $"Dust: {playerScript.GetDust()}";
@@ -78,7 +113,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void UpgradeSuctionPressed()
     {
-        if (playerScript.GetDust() <= suctionUpgrades[suctionIndex].cost)
+        if (playerScript.GetDust() >= suctionUpgrades[suctionIndex].cost)
         {
             float newDust = playerScript.GetDust() - suctionUpgrades[suctionIndex].cost;
             playerScript.SetDust(newDust);
@@ -89,16 +124,17 @@ public class UpgradeManager : MonoBehaviour
             if (suctionIndex >= suctionUpgrades.Count)
             {
                 suctionButton.SetActive(false);
+                dustText.text = $"Dust: {playerScript.GetDust()}";
             }
             else
             {
-                UpdateText();
+                UpdateSuctionText();
             }
         }
     }
     public void UpgradeCapacityPressed()
     {
-        if (playerScript.GetDust() <= capacityUpgrades[capacityIndex].cost)
+        if (playerScript.GetDust() >= capacityUpgrades[capacityIndex].cost)
         {
             float newDust = playerScript.GetDust() - capacityUpgrades[capacityIndex].cost;
             playerScript.SetDust(newDust);
@@ -109,16 +145,17 @@ public class UpgradeManager : MonoBehaviour
             if (capacityIndex >= capacityUpgrades.Count)
             {
                 capacityButton.SetActive(false);
+                dustText.text = $"Dust: {playerScript.GetDust()}";
             }
             else
             {
-                UpdateText();
+                UpdateCapacityText();
             }
         }
     }
     public void UpgradePowerPressed()
     {
-        if (playerScript.GetDust() <= powerUpgrades[powerIndex].cost)
+        if (playerScript.GetDust() >= powerUpgrades[powerIndex].cost)
         {
             float newDust = playerScript.GetDust() - powerUpgrades[powerIndex].cost;
             playerScript.SetDust(newDust);
@@ -129,10 +166,32 @@ public class UpgradeManager : MonoBehaviour
             if (powerIndex >= powerUpgrades.Count)
             {
                 powerButton.SetActive(false);
+                dustText.text = $"Dust: {playerScript.GetDust()}";
             }
             else
             {
-                UpdateText();
+                UpdatePowerText();
+            }
+        }
+    }
+    public void UpgradeKnifePressed()
+    {
+        if (playerScript.GetDust() >= knifeUpgrades[knifeIndex].cost)
+        {
+            float newDust = playerScript.GetDust() - knifeUpgrades[knifeIndex].cost;
+            playerScript.SetDust(newDust);
+            playerScript.KnifePurchased();
+            knifeIndex++;
+            audioSource.Play();
+
+            if (knifeIndex >= knifeUpgrades.Count)
+            {
+                knifeButton.SetActive(false);
+                dustText.text = $"Dust: {playerScript.GetDust()}";
+            }
+            else
+            {
+                UpdateKnifeText();
             }
         }
     }

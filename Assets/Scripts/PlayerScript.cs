@@ -102,7 +102,6 @@ public class PlayerScript : MonoBehaviour
         //HandleCamera();
         Move();
         PowerManagement();
-        UpgradeManager();
         ButtonCheck();
         CameraDistanceCheck();
 
@@ -304,7 +303,7 @@ public class PlayerScript : MonoBehaviour
 
     void PowerDepletion()
     {
-        if (power > 0) 
+        if (power > 0)
         {
             power -= Time.deltaTime * powerDepletion;
             lowPower = false;
@@ -369,6 +368,11 @@ public class PlayerScript : MonoBehaviour
         maxPower = _power;
         uiManager.SetPowerSliderValue(power, maxPower);
     }
+    public void KnifePurchased()
+    {
+        hasKnife = true;
+        Knife.SetActive(true);
+    }
 
     public float GetDust()
     {
@@ -377,18 +381,5 @@ public class PlayerScript : MonoBehaviour
     public void SetDust(float _dust)
     {
         dust = _dust;
-    }
-
-    private void UpgradeManager()
-    {
-        //if (UI BUTTON IS CLICKED)
-        //{
-        //    hasKnife = True;
-        //}
-
-        //if (UI BUTTON IS CLICKED & EITHER INCREMENT OR SET RANGE)
-        //{
-        //    ps.endRange = 5;
-        //}
     }
 }

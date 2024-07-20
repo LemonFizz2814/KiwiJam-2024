@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
     {
         LockCursor(!_show);
         upgradeManager.gameObject.SetActive(_show);
-        upgradeManager.UpdateText();
+        upgradeManager.UpdateAllText();
     }
     public void ExitToMenuPressed()
     {
