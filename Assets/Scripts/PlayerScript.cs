@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float powerDepletion;
     [SerializeField] private float powerDumpLoss;
     [SerializeField] private float satOnSpeedDeduction;
+    [SerializeField] private float powerCharge;
 
     [Header("Camera Variables")]
     [SerializeField] private float mouseSensitivity;
@@ -57,7 +58,7 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
-        HandleCamera();
+        //HandleCamera();
         PowerManagement();
         PowerDepletion();
         EjectButton();
@@ -65,6 +66,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        //HandleCamera();
     }
 
     void Move()
@@ -89,12 +91,12 @@ public class PlayerScript : MonoBehaviour
     }
     void HandleCamera()
     {
-        mouseX += Input.GetAxis("Mouse X") * mouseSensitivity;
-        mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
-        mouseY = Mathf.Clamp(mouseY, 15, 50);
+        //mouseX += Input.GetAxis("Mouse X") * mouseSensitivity;
+        //mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivity;
+        //mouseY = Mathf.Clamp(mouseY, 15, 50);
 
-        cameraTransform.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
-        cameraTransform.position = transform.position - cameraTransform.forward * cameraDistance;
+        //cameraTransform.localRotation = Quaternion.Euler(mouseY, mouseX, 0);
+        //cameraTransform.position = transform.position - cameraTransform.forward * cameraDistance;
     }
 
     void EjectButton()
@@ -170,7 +172,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (power < maxPower)
         {
-            power += Time.deltaTime * powerDepletion;
+            power += Time.deltaTime * powerCharge;
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
