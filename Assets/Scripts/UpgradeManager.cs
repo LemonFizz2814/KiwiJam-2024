@@ -23,11 +23,15 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI capacityLevelText;
     [SerializeField] private TextMeshProUGUI powerLevelText;
     [Space]
+    [SerializeField] private TextMeshProUGUI dustText;
+    [Space]
     [SerializeField] private GameObject suctionButton;
     [SerializeField] private GameObject capacityButton;
     [SerializeField] private GameObject powerButton;
     [Space]
     [SerializeField] private UIManager uiManager;
+
+    private AudioSource audioSource;
 
     private int suctionIndex = 0;
     private int capacityIndex = 0;
@@ -44,6 +48,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         playerScript = FindObjectOfType<PlayerScript>();
 
         suctionButton.SetActive(true);
@@ -66,6 +71,8 @@ public class UpgradeManager : MonoBehaviour
         suctionLevelText.text = $"Upgrade suction\nLvl. {suctionIndex}";
         capacityLevelText.text = $"Upgrade capacity\nLvl. {capacityIndex}";
         powerLevelText.text = $"Upgrade power\nLvl. {powerIndex}";
+
+        dustText.text = $"Dust: {playerScript.GetDust()}";
     }
 
     public void UpgradeSuctionPressed()
@@ -76,8 +83,9 @@ public class UpgradeManager : MonoBehaviour
             playerScript.SetDust(newDust);
             playerScript.SuctionIncreased(suctionUpgrades[suctionIndex].increase);
             suctionIndex++;
+            audioSource.Play();
 
-            if(suctionIndex >= suctionUpgrades.Count)
+            if (suctionIndex >= suctionUpgrades.Count)
             {
                 suctionButton.SetActive(false);
             }
@@ -95,6 +103,7 @@ public class UpgradeManager : MonoBehaviour
             playerScript.SetDust(newDust);
             playerScript.CapacityIncreased(capacityUpgrades[capacityIndex].increase);
             capacityIndex++;
+            audioSource.Play();
 
             if (capacityIndex >= capacityUpgrades.Count)
             {
@@ -114,6 +123,7 @@ public class UpgradeManager : MonoBehaviour
             playerScript.SetDust(newDust);
             playerScript.PowerIncreased(powerUpgrades[powerIndex].increase);
             powerIndex++;
+            audioSource.Play();
 
             if (powerIndex >= powerUpgrades.Count)
             {

@@ -56,6 +56,7 @@ public class PlayerScript : MonoBehaviour
     private bool inUpgradeStation;
     private bool inStickySubstance;
     private bool lowPower, fullPower;
+    private bool gameOver = false;
 
     // Upgrades
     private bool hasKnife;
@@ -95,6 +96,9 @@ public class PlayerScript : MonoBehaviour
 
     void Update()
     {
+        if (gameOver)
+            return;
+
         //HandleCamera();
         Move();
         PowerManagement();
@@ -187,7 +191,7 @@ public class PlayerScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        if (Input.GetKeyDown(KeyCode.Home))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("MainMenu");
         }
@@ -257,6 +261,11 @@ public class PlayerScript : MonoBehaviour
             uiManager.ShowUpgradeStationPrompt(false);
             inUpgradeStation = false;
         }
+    }
+
+    public void GameOver()
+    {
+        gameOver = true;
     }
 
     public void CollectDust()

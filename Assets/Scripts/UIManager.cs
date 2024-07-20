@@ -16,6 +16,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dustText;
     [Space]
     [SerializeField] private UpgradeManager upgradeManager;
+    [Space]
+    [SerializeField] private ParticleSystem dustVFX;
+    [SerializeField] private float percentageToWin;
+
+    private int startParticleCount;
+    private int particlesToWin;
+
+    private bool gameOver = false;
 
     private PlayerScript playerScript;
 
@@ -29,7 +37,34 @@ public class UIManager : MonoBehaviour
 
         playerScript = FindObjectOfType<PlayerScript>();
 
+        var mainModule = dustVFX.main;
+        int maxParticles = mainModule.maxParticles;
+        startParticleCount = maxParticles;
+
+        particlesToWin = (int)(startParticleCount - (startParticleCount * (percentageToWin/100)));
+
         LockCursor(false);
+    }
+
+    private void Update()
+    {
+        if (gameOver)
+            return;
+
+        var mainModule = dustVFX.main;
+        int maxParticles = mainModule.maxParticles;
+
+        if (maxParticles <= particlesToWin)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver()
+    {
+        gameOver = true;
+        ShowEndScreen(true);
+        playerScript.GameOver();
     }
 
     public void SetPowerSliderValue(float _value, float _max)
@@ -59,6 +94,7 @@ public class UIManager : MonoBehaviour
     {
         LockCursor(!_show);
         upgradeManager.gameObject.SetActive(_show);
+        upgradeManager.UpdateText();
     }
     public void ExitToMenuPressed()
     {
