@@ -117,15 +117,15 @@ public class PlayerScript : MonoBehaviour
 
     float CalculateSpeedDeduction(float _speed)
     {
-        if(beingSatOn)
+        if (beingSatOn)
         {
             _speed *= satOnSpeedDeduction;
         }
-        if(inStickySubstance)
+        if (inStickySubstance)
         {
             _speed *= stickySpeedDeduction;
         }
-        if(lowPower)
+        if (lowPower)
         {
             _speed *= lowPowerSpeedDeduction;
         }
@@ -135,10 +135,14 @@ public class PlayerScript : MonoBehaviour
 
     void EjectButton()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             dust = 0;
-            power -= powerDumpLoss;
+            if (power >= powerDumpLoss)
+            {
+                power -= powerDumpLoss;
+            }
+            else { power = 0; }
 
             uiManager.SetPowerSliderValue(power, maxPower);
             uiManager.SetDustValue(dust, maxDust);
@@ -155,19 +159,31 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Dust") && dust < maxDust)
+        if (other.CompareTag("Dust") && dust < maxDust)
         {
             CollectDust();
             Destroy(other.gameObject);
         }
-        else if(other.CompareTag("Sticky"))
+        else if (other.CompareTag("Sticky"))
         {
             audioSource.PlayOneShot(slimeSFX);
             inStickySubstance = true;
         }
-        else if(other.CompareTag("Recharge Station"))
+        else if (other.CompareTag("Recharge Station"))
         {
             audioSource.PlayOneShot(rechargeSFX);
+        }
+        else if (other.CompareTag("Battery"))
+        {
+            if (power + 10 <= maxPower)
+            {
+                power += 10;
+            }
+            else
+            {
+                power = maxPower;
+            }
+            Destroy(other.gameObject);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -211,7 +227,7 @@ public class PlayerScript : MonoBehaviour
 
     void PowerDepletion()
     {
-        if (power > 0) 
+        if (power > 0)
         {
             power -= Time.deltaTime * powerDepletion;
             lowPower = false;
@@ -219,7 +235,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            if(!lowPower)
+            if (!lowPower)
             {
                 lowPower = true;
                 audioSource.PlayOneShot(powerDownSFX);
@@ -235,7 +251,7 @@ public class PlayerScript : MonoBehaviour
         {
             power += Time.deltaTime * powerCharge;
         }
-        else if(!fullPower)
+        else if (!fullPower)
         {
             fullPower = true;
             audioSource.PlayOneShot(powerUpSFX);
