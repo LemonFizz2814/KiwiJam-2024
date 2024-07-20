@@ -285,8 +285,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 183.48914, y: -39.308228}
-  m_SizeDelta: {x: 334.2809, y: 51.7289}
+  m_AnchoredPosition: {x: 116.90222, y: -62.18103}
+  m_SizeDelta: {x: 201.1071, y: 97.4745}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2006784451884600314
 CanvasRenderer:
@@ -316,7 +316,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press E to dump
+  m_text: 'E | dump
+
+    R | restart
+
+    Home | menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
   m_sharedMaterial: {fileID: -8123151119879063724, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
@@ -343,8 +347,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -355,7 +359,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: -27.49
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WayPointSystem : MonoBehaviour
 {
     [SerializeField] private Transform wayPointParent;
+    [SerializeField] private Animator animator;
     [Header("Variables")]
     [SerializeField] private float speed;
     [SerializeField] private float waitTime;
@@ -60,15 +61,20 @@ public class WayPointSystem : MonoBehaviour
 
     private IEnumerator Waiting()
     {
-        moving = false;
+        SetMoving(false);
+        //animator.SetTrigger("Sit");
         yield return new WaitForSeconds(waitTime);
         SelectNextWayPoint();
-        moving = true;
+        SetMoving(true);
     }
 
     public void SetMoving(bool _moving)
     {
-        StopAllCoroutines();
         moving = _moving;
+
+        if(animator)
+            animator.SetBool("Walking", _moving);
+        if (_moving)
+            StopAllCoroutines();
     }
 }

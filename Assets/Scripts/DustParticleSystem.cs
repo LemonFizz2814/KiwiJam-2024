@@ -10,7 +10,7 @@ public class DustParticleSystem : MonoBehaviour
     List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
     private ParticleSystem ps;
 
-    void Start()
+    void Awake()
     {
         ps = GetComponent<ParticleSystem>();
     }
