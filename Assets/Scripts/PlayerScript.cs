@@ -58,6 +58,8 @@ public class PlayerScript : MonoBehaviour
     private bool hasKnife;
     private GameObject Knife;
 
+    private ParticleSystemForceField ps;
+
     private Rigidbody rb;
     private AudioSource audioSource;
 
@@ -80,9 +82,10 @@ public class PlayerScript : MonoBehaviour
         uiManager.SetDustValue(dust, maxDust);
 
         //Upgrade Stuff
-        //Knife = transform.Find("Roomba").Find("Knife").gameObject;
-        //Knife.SetActive(false);
+        Knife = transform.Find("Roomba").Find("Knife").gameObject;
+        Knife.SetActive(false);
 
+        ps = transform.Find("Roomba").Find("Vacuum").GetComponent<ParticleSystemForceField>();
     }
 
     void Update()
@@ -308,6 +311,11 @@ public class PlayerScript : MonoBehaviour
         //if (UI BUTTON IS CLICKED)
         //{
         //    hasKnife = True;
+        //}
+
+        //if (UI BUTTON IS CLICKED & EITHER INCREMENT OR SET RANGE)
+        //{
+        //    ps.endRange = 5;
         //}
     }
 }
