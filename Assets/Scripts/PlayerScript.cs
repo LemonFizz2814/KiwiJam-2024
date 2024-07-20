@@ -52,15 +52,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         HandleCamera();
-
-        if (!isCharging)
-        {
-            PowerDepletion();
-        }
-        else
-        {
-            PowerRecharge();
-        }
+        PowerManagement();
     }
     private void FixedUpdate()
     {
@@ -124,6 +116,18 @@ public class PlayerScript : MonoBehaviour
     {
         dust++;
         uiManager.SetDustValue(dust, maxDust);
+    }
+
+    void PowerManagement()
+    {
+        if (!isCharging)
+        {
+            PowerDepletion();
+        }
+        else
+        {
+            PowerRecharge();
+        }
     }
 
     void PowerDepletion()
