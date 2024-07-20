@@ -75,8 +75,8 @@ public class PlayerScript : MonoBehaviour
         uiManager.SetDustValue(dust, maxDust);
 
         //Upgrade Stuff
-        Knife = transform.Find("Roomba").Find("Knife").gameObject;
-        Knife.SetActive(false);
+        //Knife = transform.Find("Roomba").Find("Knife").gameObject;
+        //Knife.SetActive(false);
 
     }
 
