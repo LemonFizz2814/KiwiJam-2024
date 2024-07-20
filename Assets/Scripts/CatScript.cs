@@ -49,6 +49,7 @@ public class CatScript : MonoBehaviour
         wayPointSystem.SetMoving(true);
 
         playerScript.SetBeingSatOn(false, null);
+        transform.SetParent(null);
 
         wayPointSystem.SelectNextWayPoint();
 
