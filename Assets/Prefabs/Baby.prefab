@@ -52,8 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPointSystem: {fileID: 2111411009864042282}
   slapWaitTimer: 2
-  slapForce: 10
-  forceDirection: {x: 0, y: 1, z: 0}
+  babySFX: {fileID: 0}
 --- !u!114 &2111411009864042282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,8 +66,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wayPointParent: {fileID: 0}
+  animator: {fileID: 0}
   speed: 25
-  waitTime: 2
+  waitTime: 4
 --- !u!54 &7966477061517443287
 Rigidbody:
   m_ObjectHideFlags: 0

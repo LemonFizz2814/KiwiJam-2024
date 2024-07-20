@@ -24,7 +24,7 @@ public class WayPointSystem : MonoBehaviour
 
     private void Start()
     {
-        moving = true;
+        SetMoving(true);
         SelectNextWayPoint();
     }
 
@@ -53,7 +53,7 @@ public class WayPointSystem : MonoBehaviour
 
     void ReachedTargetCheck()
     {
-        if (Vector3.Distance(transform.position, targetWayPoint.position) <= 0.3f)
+        if (Vector3.Distance(transform.position, targetWayPoint.position) <= 0.4f)
         {
             StartCoroutine(Waiting());
         }

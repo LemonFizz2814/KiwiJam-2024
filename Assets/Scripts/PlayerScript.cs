@@ -96,6 +96,8 @@ public class PlayerScript : MonoBehaviour
         UpgradeManager();
         ButtonCheck();
         CameraDistanceCheck();
+
+        ps.gameObject.SetActive(dust >= maxDust); // disable forcefield if dust is full
     }
     private void FixedUpdate()
     {
@@ -168,22 +170,19 @@ public class PlayerScript : MonoBehaviour
 
     public void Dump()
     {
-        if (dust < maxDust)
+        dust = 0;
+        power -= powerDumpLoss;
+
+        uiManager.SetPowerSliderValue(power, maxPower);
+        uiManager.SetDustValue(dust, maxDust);
+
+        audioSource.PlayOneShot(dumpSFX);
+
+        if (beingSatOn && catScript != null)
         {
-            dust = 0;
-            power -= powerDumpLoss;
-
-            uiManager.SetPowerSliderValue(power, maxPower);
-            uiManager.SetDustValue(dust, maxDust);
-
-            audioSource.PlayOneShot(dumpSFX);
-
-            if (beingSatOn && catScript != null)
-            {
-                catScript.HopOffPlayer(transform);
-            }
-            // TODO: spawn in dust particle cloud
+            catScript.HopOffPlayer(transform);
         }
+        // TODO: spawn in dust particle cloud
     }
 
     private void OnTriggerEnter(Collider other)
@@ -224,10 +223,13 @@ public class PlayerScript : MonoBehaviour
 
     public void CollectDust()
     {
-        dust++;
-        uiManager.SetDustValue(dust, maxDust);
-        audioSource.pitch = Random.Range(0.95f, 1.05f);
-        audioSource.PlayOneShot(suckSFX, 0.3f);
+        if (dust < maxDust)
+        {
+            dust++;
+            uiManager.SetDustValue(dust, maxDust);
+            audioSource.pitch = Random.Range(0.95f, 1.05f);
+            audioSource.PlayOneShot(suckSFX, 0.3f);
+        }
     }
 
     private void CameraDistanceCheck()
