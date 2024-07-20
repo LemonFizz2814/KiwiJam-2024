@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
@@ -8,16 +9,20 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Slider powerSlider;
     [SerializeField] private GameObject startScreen;
+    [SerializeField] private GameObject endingScreen;
     [SerializeField] private GameObject catHelpText;
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField] private TextMeshProUGUI dustText;
-    [Space]
-    [SerializeField] private PlayerScript playerScript;
+
+    private PlayerScript playerScript;
 
     private void Awake()
     {
         startScreen.SetActive(true);
         ShowCatHelpText(false);
+        ShowEndScreen(false);
+
+        playerScript = FindObjectOfType<PlayerScript>();
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -36,6 +41,14 @@ public class UIManager : MonoBehaviour
     public void ShowCatHelpText(bool _show)
     {
         catHelpText.SetActive(_show);
+    }
+    public void ShowEndScreen(bool _show)
+    {
+        endingScreen.SetActive(_show);
+    }
+    public void ExitToMenuPressed()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void StartGamePressed()
