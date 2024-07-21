@@ -1003,27 +1003,26 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Ben -  PROGRAMMER
 
-    
+
 
     Blake - PROGRAMMER
 
-    
 
-    Edward -
-    PROGRAMMER
 
-    
+    Edward - PROGRAMMER
 
-    Lucas - PROGRAMMER \ ARTIST
 
-    
+
+    Lucas
+    - PROGRAMMER \ ARTIST
+
+
 
     Lyvia - PROGRAMMER
 
-    
 
-    Sergio
-    - ARTIST'
+
+    Sergio - ARTIST'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
   m_sharedMaterial: {fileID: -8123151119879063724, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
@@ -1898,6 +1897,16 @@ PrefabInstance:
     - {fileID: 2236917681856237075, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
     - {fileID: 2464572288999166007, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
     - {fileID: 7747925857892893172, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 1578741111842220137, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 4782372263149847842, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 1073579772970820258, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 3865883698509734628, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 4953649556507645210, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 8973272919804748649, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 8713796612278076686, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 1881179727021600237, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 2493876407064533174, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+    - {fileID: 4790317960124106429, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
