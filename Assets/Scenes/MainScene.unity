@@ -8265,14 +8265,27 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -9
       objectReference: {fileID: 0}
-    - target: {fileID: 3453095595932782733, guid: 468d772f18706a247b6f981a89117b1c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 5448830204865382993, guid: 468d772f18706a247b6f981a89117b1c, type: 3}
+      propertyPath: m_text
+      value: Press Q to dump dust to scare cat
       objectReference: {fileID: 0}
     - target: {fileID: 6103983735656376746, guid: 468d772f18706a247b6f981a89117b1c, type: 3}
       propertyPath: playerScript
       value: 
       objectReference: {fileID: 22805965}
+    - target: {fileID: 6173292126118069725, guid: 468d772f18706a247b6f981a89117b1c, type: 3}
+      propertyPath: m_text
+      value: 'WASD | move
+
+        Esc | menu
+
+        E | upgrade
+
+        Q | dump
+
+        R
+        | restart'
+      objectReference: {fileID: 0}
     - target: {fileID: 6377051755377904254, guid: 468d772f18706a247b6f981a89117b1c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

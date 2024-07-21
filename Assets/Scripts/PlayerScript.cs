@@ -183,16 +183,13 @@ public class PlayerScript : MonoBehaviour
     }
     void ButtonCheck()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && inUpgradeStation)
         {
-            if (inUpgradeStation)
-            {
-                uiManager.ShowUpgradeScreen(true);
-            }
-            else
-            {
-                Dump();
-            }
+            uiManager.ShowUpgradeScreen(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Dump();
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
