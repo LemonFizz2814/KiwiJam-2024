@@ -35,6 +35,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private GameObject knifeButton;
     [Space]
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private PlayerScript playerScript;
 
     private AudioSource audioSource;
 
@@ -42,8 +43,6 @@ public class UpgradeManager : MonoBehaviour
     private int capacityIndex = 0;
     private int powerIndex = 0;
     private int knifeIndex = 0;
-
-    private PlayerScript playerScript;
 
     [Serializable]
     public struct Upgrade
@@ -55,7 +54,11 @@ public class UpgradeManager : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        playerScript = FindObjectOfType<PlayerScript>();
+
+        if (playerScript == null)
+        {
+            playerScript = FindObjectOfType<PlayerScript>();
+        }
 
         suctionButton.SetActive(true);
         capacityButton.SetActive(true);
