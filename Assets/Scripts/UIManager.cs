@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     private int particlesToWin;
 
     private bool gameOver = false;
+    private bool delay = true;
 
     private PlayerScript playerScript;
 
@@ -51,21 +52,31 @@ public class UIManager : MonoBehaviour
         particlesToWin = (int)(startParticleCount - (startParticleCount * (percentageToWin/100)));
 
         LockCursor(false);
+
+        StartCoroutine(Delay());
     }
 
     private void Update()
     {
-        if (gameOver)
+        if (gameOver || delay)
             return;
 
         var mainModule = dustVFX.main;
         int maxParticles = mainModule.maxParticles;
 
-        if (maxParticles <= particlesToWin)
+        if (dustVFX.particleCount <= particlesToWin)
         {
             GameOver();
         }
     }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(1);
+        delay = false;
+    }
+
+
 
     void GameOver()
     {
