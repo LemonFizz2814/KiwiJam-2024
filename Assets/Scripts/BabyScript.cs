@@ -29,7 +29,7 @@ public class BabyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && canSlap)
+        if (other.CompareTag("Player") && canSlap && !other.GetComponent<PlayerScript>().GetHasKnife())
         {
             SlapPlayer(other.transform);
         }
