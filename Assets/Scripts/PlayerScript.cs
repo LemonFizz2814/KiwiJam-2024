@@ -381,6 +381,7 @@ public class PlayerScript : MonoBehaviour
     public void PowerIncreased(float _power)
     {
         maxPower += _power;
+        power = maxPower;
         uiManager.SetPowerSliderValue(power, maxPower);
     }
     public void KnifePurchased()
