@@ -59,7 +59,6 @@ public class PlayerScript : MonoBehaviour
     private bool gameOver = false;
 
     // Upgrades
-    private bool hasKnife;
     [SerializeField] private GameObject Knife;
 
     private ParticleSystemForceField ps;
@@ -354,22 +353,21 @@ public class PlayerScript : MonoBehaviour
 
     public void SuctionIncreased(float _suction)
     {
-        suction = _suction;
+        suction += _suction;
         ps.endRange = suction;
     }
     public void CapacityIncreased(float _capacity)
     {
-        maxDust = _capacity;
+        maxDust += _capacity;
         uiManager.SetDustValue(dust, maxDust);
     }
     public void PowerIncreased(float _power)
     {
-        maxPower = _power;
+        maxPower += _power;
         uiManager.SetPowerSliderValue(power, maxPower);
     }
     public void KnifePurchased()
     {
-        hasKnife = true;
         Knife.SetActive(true);
     }
 

@@ -3157,15 +3157,15 @@ MonoBehaviour:
     increase: 500
   powerUpgrades:
   - cost: 150
-    increase: 25
+    increase: 50
   - cost: 200
     increase: 50
   - cost: 350
-    increase: 50
+    increase: 100
   - cost: 600
     increase: 100
   - cost: 1200
-    increase: 250
+    increase: 300
   knifeUpgrades:
   - cost: 500
     increase: 1
