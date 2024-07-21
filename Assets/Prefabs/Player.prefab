@@ -77,7 +77,7 @@ MonoBehaviour:
   hissSFX: {fileID: 8300000, guid: 779cc4a92cddeeb4da07e6aae7fc1404, type: 3}
   meowSFX: {fileID: 8300000, guid: 62b06968bc803554682768d0b19a142b, type: 3}
   babySFX: {fileID: 8300000, guid: dc4ef323dcc6bd04f8757a07e1a8e4ff, type: 3}
-  Knife: {fileID: 0}
+  Knife: {fileID: 3260858142740111807}
 --- !u!54 &2258162225821441563
 Rigidbody:
   m_ObjectHideFlags: 0
