@@ -52,11 +52,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDust: 100
   maxPower: 100
-  maxSpeed: 5
-  powerDepletion: 3
+  maxSpeed: 6
+  powerDepletion: 2.5
   satOnSpeedDeduction: 0.35
   stickySpeedDeduction: 0.4
-  lowPowerSpeedDeduction: 0.15
+  lowPowerSpeedDeduction: 0.25
   powerCharge: 20
   suctionPower: 1
   mouseSensitivity: 2

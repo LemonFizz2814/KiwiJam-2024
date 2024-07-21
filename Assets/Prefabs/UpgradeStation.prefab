@@ -205,7 +205,7 @@ Transform:
   - {fileID: 7614054045823499981}
   - {fileID: 1167275944962806447}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &668934099673504338
 BoxCollider:
@@ -515,7 +515,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.6
       minScalar: 1
       maxCurve:
         serializedVersion: 2
