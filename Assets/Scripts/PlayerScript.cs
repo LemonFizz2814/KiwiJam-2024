@@ -60,7 +60,7 @@ public class PlayerScript : MonoBehaviour
 
     // Upgrades
     private bool hasKnife;
-    private GameObject Knife;
+    [SerializeField] private GameObject Knife;
 
     private ParticleSystemForceField ps;
 
@@ -79,7 +79,6 @@ public class PlayerScript : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
 
         //Upgrade Stuff
-        Knife = transform.Find("Roomba").Find("Knife").gameObject;
         Knife.SetActive(false);
 
         ps = transform.Find("Roomba").Find("Vacuum").GetComponent<ParticleSystemForceField>();

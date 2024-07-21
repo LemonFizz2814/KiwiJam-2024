@@ -10,6 +10,7 @@ public class BabyScript : MonoBehaviour
     [SerializeField] private float slapWaitTimer;
     [SerializeField] private AudioClip babySFX;
     [SerializeField] private Vector2 randomAudio;
+    [SerializeField] private Animator animator;
 
     // private variable
     private bool canSlap;
@@ -37,6 +38,8 @@ public class BabyScript : MonoBehaviour
     void SlapPlayer(Transform _player)
     {
         audioSource.PlayOneShot(babySFX);
+
+        animator.SetTrigger("Attack");
 
         Vector3 direction = (transform.position - _player.position).normalized;
         direction = new Vector3(direction.x, -0.3f, direction.z);

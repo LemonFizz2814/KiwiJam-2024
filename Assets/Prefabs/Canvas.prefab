@@ -3055,7 +3055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5414098001827122770
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3167,7 +3167,7 @@ MonoBehaviour:
   - cost: 1200
     increase: 250
   knifeUpgrades:
-  - cost: 20
+  - cost: 500
     increase: 1
   suctionPriceText: {fileID: 2609686276513069156}
   capacityPriceText: {fileID: 1933497638288530177}
