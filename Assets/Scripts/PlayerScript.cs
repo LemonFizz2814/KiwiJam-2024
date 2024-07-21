@@ -282,7 +282,7 @@ public class PlayerScript : MonoBehaviour
             dust++;
             uiManager.SetDustValue(dust, maxDust);
             audioSource.pitch = Random.Range(0.95f, 1.05f);
-            audioSource.PlayOneShot(suckSFX, 0.3f);
+            audioSource.PlayOneShot(suckSFX, 0.05f);
         }
     }
 
