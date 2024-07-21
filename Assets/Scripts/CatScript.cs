@@ -27,7 +27,7 @@ public class CatScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && canSit)
+        if(other.CompareTag("Player") && canSit && !other.GetComponent<PlayerScript>().GetHasKnife())
         {
             SitOnPlayer(other.transform);
         }

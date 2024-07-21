@@ -32,6 +32,7 @@ public class PlayerScript : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioSource vacuumAudio;
+    [SerializeField] private AudioSource audioClip;
     [SerializeField] private AudioClip suckSFX;
     [SerializeField] private AudioClip slimeSFX;
     [SerializeField] private AudioClip rechargeSFX;
@@ -58,6 +59,7 @@ public class PlayerScript : MonoBehaviour
     private bool inStickySubstance;
     private bool lowPower, fullPower;
     private bool gameOver = false;
+    private bool hasKnife = false;
 
     // Upgrades
     [SerializeField] private GameObject Knife;
@@ -271,7 +273,7 @@ public class PlayerScript : MonoBehaviour
     public void GameOver()
     {
         gameOver = true;
-        audioSource.PlayOneShot(outroSFX);
+        audioClip.PlayOneShot(outroSFX);
     }
 
     public void CollectDust()
@@ -386,7 +388,13 @@ public class PlayerScript : MonoBehaviour
     }
     public void KnifePurchased()
     {
+        hasKnife = true;
         Knife.SetActive(true);
+    }
+
+    public bool GetHasKnife()
+    {
+        return hasKnife;
     }
 
     public float GetDust()
