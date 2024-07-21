@@ -282,7 +282,7 @@ public class PlayerScript : MonoBehaviour
             dust++;
             uiManager.SetDustValue(dust, maxDust);
             audioSource.pitch = Random.Range(0.95f, 1.05f);
-            audioSource.PlayOneShot(suckSFX, 0.05f);
+            audioSource.PlayOneShot(suckSFX, 0.1f);
         }
     }
 
@@ -363,10 +363,10 @@ public class PlayerScript : MonoBehaviour
         else
         { audioSource.PlayOneShot(hissSFX); }
 
-        uiManager.ShowCatHelpText(beingSatOn);
-
         beingSatOn = _beingSatOn;
         catScript = _catScript;
+
+        uiManager.ShowCatHelpText(beingSatOn);
     }
 
     public void SuctionIncreased(float _suction)

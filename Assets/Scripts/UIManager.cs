@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider powerSlider;
     [SerializeField] private GameObject startScreen;
     [SerializeField] private GameObject endingScreen;
+    [SerializeField] private GameObject endingInProgressScreen;
     [SerializeField] private GameObject catHelpText;
     [SerializeField] private GameObject upgradeStationPromptText;
     [SerializeField] private TextMeshProUGUI powerText;
@@ -35,7 +36,8 @@ public class UIManager : MonoBehaviour
     {
         startScreen.SetActive(true);
         ShowCatHelpText(false);
-        ShowEndScreen(false);
+        endingScreen.SetActive(false);
+        endingInProgressScreen.SetActive(false);
         upgradeManager.gameObject.SetActive(false);
         ShowUpgradeStationPrompt(false);
 
@@ -96,8 +98,16 @@ public class UIManager : MonoBehaviour
     }
     public void ShowEndScreen(bool _show)
     {
-        endingScreen.SetActive(_show);
-        LockCursor(!_show);
+        StartCoroutine(Ending());
+    }
+    IEnumerator Ending()
+    {
+        endingInProgressScreen.SetActive(true);
+
+        yield return new WaitForSeconds(3);
+        endingInProgressScreen.SetActive(false);
+        endingScreen.SetActive(true);
+        LockCursor(false);
     }
     public void ShowUpgradeStationPrompt(bool _show)
     {
