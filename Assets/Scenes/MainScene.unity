@@ -5833,6 +5833,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &457462965 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5959408976284858739, guid: 6e7f8f5dbf7364a41bdc4f9d5dab626e, type: 3}
+  m_PrefabInstance: {fileID: 3330509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &503736787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6299093259466987377, guid: 5fad107b2781cc740bb8e23e7ff16398, type: 3}
@@ -7292,7 +7297,7 @@ Transform:
   - {fileID: 1070321467}
   - {fileID: 904224048}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1595157432
 PrefabInstance:
@@ -7903,7 +7908,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &647885987511995498
 PrefabInstance:
@@ -8064,6 +8069,10 @@ PrefabInstance:
       value: 10.96
       objectReference: {fileID: 0}
     - target: {fileID: 13844595674709613, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 13844595674709613, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
       propertyPath: m_LocalPosition.z
       value: -3.35
       objectReference: {fileID: 0}
@@ -8178,10 +8187,10 @@ PrefabInstance:
       addedObject: {fileID: 332320000}
     - targetCorrespondingSourceObject: {fileID: 5333833053820993288, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1510871639}
+      addedObject: {fileID: 1884434451}
     - targetCorrespondingSourceObject: {fileID: 5333833053820993288, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1884434451}
+      addedObject: {fileID: 457462965}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05e1dc13c597b224cbe6aa74a0d01bcb, type: 3}
 --- !u!1001 &5603685211173959116
