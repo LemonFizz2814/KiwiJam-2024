@@ -61,7 +61,7 @@ MonoBehaviour:
   suctionPower: 1
   mouseSensitivity: 2
   cameraDistance: 5
-  rotationSpeed: 2.5
+  rotationSpeed: 120
   cameraTransform: {fileID: 7939224395878610276}
   camSetPos: {fileID: 4991183433783751995}
   model: {fileID: 8332564092097140337}

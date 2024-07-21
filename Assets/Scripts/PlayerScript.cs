@@ -114,7 +114,8 @@ public class PlayerScript : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Mathf.Clamp(Input.GetAxis("Vertical"), 0, 1);
-        moveDirection = new Vector3(horizontal, 0, vertical);
+
+        moveDirection = new Vector3(0, 0, vertical);
         moveDirection = cameraTransform.TransformDirection(moveDirection);
         moveDirection.y = 0;
         moveDirection.Normalize();
@@ -122,10 +123,13 @@ public class PlayerScript : MonoBehaviour
         float velocity = CalculateSpeedDeduction(maxSpeed);
         rb.velocity = moveDirection * velocity;
 
+        if (horizontal != 0)
+        {
+            NewRotate();
+        }
+
         if (rb.velocity.magnitude > 0.05f)
         {
-            Rotate();
-
             if(!isCharging)
             {
                 PowerDepletion();
@@ -143,6 +147,12 @@ public class PlayerScript : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         model.rotation = Quaternion.Slerp(model.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
+    void NewRotate()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float rotationAmount = horizontalInput * rotationSpeed * Time.deltaTime;
+        transform.Rotate(0, rotationAmount, 0);
     }
     void HandleCamera()
     {
