@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3348663476321148473, guid: 76746a7c1481ffe44abd01d12180c664, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e314a67ae41582940bd3e71c38f68654, type: 2}
     - target: {fileID: 7385190428407239818, guid: 76746a7c1481ffe44abd01d12180c664, type: 3}
       propertyPath: wayPointParent
       value: 
@@ -6015,6 +6019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Baby
       objectReference: {fileID: 0}
+    - target: {fileID: 5300517743012256818, guid: 8a401a867e0ada847bb401abf38102a7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4e7e99cfa3efb96459026d8c7acfcce0, type: 2}
     - target: {fileID: 5485617697615525026, guid: 8a401a867e0ada847bb401abf38102a7, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -7021,6 +7029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2957092772927540067, guid: 13176695c0039f44796565eaa98c9511, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6c7cb554143989b40b6f09c44e7799bf, type: 2}
     - target: {fileID: 7354137564756047393, guid: 13176695c0039f44796565eaa98c9511, type: 3}
       propertyPath: m_RootOrder
       value: 2
