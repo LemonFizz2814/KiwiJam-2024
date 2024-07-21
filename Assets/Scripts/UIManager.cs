@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField] private TextMeshProUGUI dustText;
     [SerializeField] private GameObject lowBatteryText;
+    [SerializeField] private GameObject batteryGoneObj;
     [Space]
     [SerializeField] private UpgradeManager upgradeManager;
     [Space]
@@ -28,15 +29,18 @@ public class UIManager : MonoBehaviour
 
     private PlayerScript playerScript;
 
+    private AudioSource audioSource;
+
     private void Awake()
     {
         startScreen.SetActive(true);
         ShowCatHelpText(false);
         ShowEndScreen(false);
-        ShowUpgradeScreen(false);
+        upgradeManager.gameObject.SetActive(false);
         ShowUpgradeStationPrompt(false);
 
         playerScript = FindObjectOfType<PlayerScript>();
+        audioSource = GetComponent<AudioSource>();
 
         var mainModule = dustVFX.main;
         int maxParticles = mainModule.maxParticles;
@@ -82,6 +86,10 @@ public class UIManager : MonoBehaviour
     {
         lowBatteryText.SetActive(show);
     }
+    public void ShowBatteryGoneText(bool show)
+    {
+        batteryGoneObj.SetActive(show);
+    }
     public void ShowCatHelpText(bool _show)
     {
         catHelpText.SetActive(_show);
@@ -100,15 +108,19 @@ public class UIManager : MonoBehaviour
         LockCursor(!_show);
         upgradeManager.gameObject.SetActive(_show);
         upgradeManager.UpdateAllText();
+
+        audioSource.Play();
     }
     public void ExitToMenuPressed()
     {
+        audioSource.Play();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void StartGamePressed()
     {
         LockCursor(true);
+        audioSource.Play();
 
         startScreen.SetActive(false);
         playerScript.StartGame();

@@ -328,6 +328,7 @@ public class PlayerScript : MonoBehaviour
 
         uiManager.SetPowerSliderValue(power, maxPower);
         uiManager.ShowLowBatteryText(IsLowPower());
+        uiManager.ShowBatteryGoneText(power <= 0);
     }
 
     void PowerRecharge()
