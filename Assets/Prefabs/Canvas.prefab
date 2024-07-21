@@ -1377,7 +1377,9 @@ MonoBehaviour:
 
     Esc | menu
 
-    E | dump
+    E | upgrade
+
+    Q | dump
 
     R | restart'
   m_isRightToLeft: 0
@@ -1937,7 +1939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press E to dump dust to scare cat
+  m_text: Press Q to dump dust to scare cat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
   m_sharedMaterial: {fileID: -8123151119879063724, guid: f0dc2f4fe408eee418ad91f55b4275a5, type: 2}
@@ -5266,7 +5268,7 @@ RectTransform:
   - {fileID: 5414098001827122770}
   - {fileID: 8494683707143718293}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

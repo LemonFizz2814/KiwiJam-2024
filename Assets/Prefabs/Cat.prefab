@@ -136,8 +136,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!82 &4692042818439362197
 AudioSource:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ PrefabInstance:
     - target: {fileID: 5828979002318216439, guid: 6cb08166c2092064fafc6139c1417020, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8e2191a0958ee4c42b135e3a642068d6, type: 2}
+      objectReference: {fileID: 2100000, guid: e314a67ae41582940bd3e71c38f68654, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

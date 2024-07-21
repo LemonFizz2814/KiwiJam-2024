@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private AudioClip hissSFX;
     [SerializeField] private AudioClip meowSFX;
     [SerializeField] private AudioClip babySFX;
+    [SerializeField] private AudioClip outroSFX;
 
     // private variables
     private float dust;
@@ -270,6 +271,7 @@ public class PlayerScript : MonoBehaviour
     public void GameOver()
     {
         gameOver = true;
+        audioSource.PlayOneShot(outroSFX);
     }
 
     public void CollectDust()

@@ -71,7 +71,6 @@ public class UIManager : MonoBehaviour
     {
         gameOver = true;
         ShowEndScreen(true);
-        playerScript.GameOver();
     }
 
     public void SetPowerSliderValue(float _value, float _max)
@@ -104,7 +103,8 @@ public class UIManager : MonoBehaviour
     {
         endingInProgressScreen.SetActive(true);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.5f);
+        playerScript.GameOver();
         endingInProgressScreen.SetActive(false);
         endingScreen.SetActive(true);
         LockCursor(false);
