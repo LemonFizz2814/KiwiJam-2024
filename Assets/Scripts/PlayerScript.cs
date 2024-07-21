@@ -317,6 +317,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
+        uiManager.ShowLowBatteryText(IsLowPower());
     }
 
     void PowerRecharge()
@@ -332,6 +333,12 @@ public class PlayerScript : MonoBehaviour
         }
 
         uiManager.SetPowerSliderValue(power, maxPower);
+        uiManager.ShowLowBatteryText(IsLowPower());
+    }
+
+    public bool IsLowPower()
+    {
+        return power < (0.25 * maxPower);
     }
 
     public Transform GetCatSitPosition()
