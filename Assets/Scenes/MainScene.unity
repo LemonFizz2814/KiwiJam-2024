@@ -7614,6 +7614,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8248355956283319689, guid: 13176695c0039f44796565eaa98c9511, type: 3}
+      propertyPath: satOnSpeedDeduction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8248355956283319689, guid: 13176695c0039f44796565eaa98c9511, type: 3}
+      propertyPath: stickySpeedDeduction
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
