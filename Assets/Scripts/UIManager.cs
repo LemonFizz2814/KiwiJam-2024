@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject upgradeStationPromptText;
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField] private TextMeshProUGUI dustText;
+    [SerializeField] private GameObject lowBatteryText;
     [Space]
     [SerializeField] private UpgradeManager upgradeManager;
     [Space]
@@ -76,6 +77,10 @@ public class UIManager : MonoBehaviour
     public void SetDustValue(float _value, float _max)
     {
         dustText.text = $"Dust ({Mathf.Round(_value)}/{_max})";
+    }
+    public void ShowLowBatteryText(bool show)
+    {
+        lowBatteryText.SetActive(show);
     }
     public void ShowCatHelpText(bool _show)
     {

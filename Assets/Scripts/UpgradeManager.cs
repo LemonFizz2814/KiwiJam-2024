@@ -86,7 +86,8 @@ public class UpgradeManager : MonoBehaviour
         suctionIncreaseText.text = $"+{suctionUpgrades[suctionIndex].increase} Suck";
         suctionLevelText.text = $"Upgrade suction\n\nLvl. {suctionIndex}";
 
-        dustText.text = $"Dust: {playerScript.GetDust()}";
+        if (playerScript != null)
+            dustText.text = $"Dust: {playerScript.GetDust()}";
     }
     public void UpdateCapacityText()
     {
@@ -94,7 +95,8 @@ public class UpgradeManager : MonoBehaviour
         capacityIncreaseText.text = $"+{capacityUpgrades[capacityIndex].increase} Max Dust";
         capacityLevelText.text = $"Upgrade capacity\n\nLvl. {capacityIndex}";
 
-        dustText.text = $"Dust: {playerScript.GetDust()}";
+        if (playerScript != null)
+            dustText.text = $"Dust: {playerScript.GetDust()}";
     }
     public void UpdatePowerText()
     {
@@ -102,7 +104,8 @@ public class UpgradeManager : MonoBehaviour
         powerIncreaseText.text = $"+{powerUpgrades[powerIndex].increase} Max Power";
         powerLevelText.text = $"Upgrade power\n\nLvl. {powerIndex}";
 
-        dustText.text = $"Dust: {playerScript.GetDust()}";
+        if (playerScript != null)
+            dustText.text = $"Dust: {playerScript.GetDust()}";
     }
     public void UpdateKnifeText()
     {
