@@ -26,4 +26,9 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
 
     }
+
+    public void CreditList()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }
